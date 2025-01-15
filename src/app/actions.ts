@@ -8,7 +8,7 @@ async function sendWaitlistEmail(subject: string, content: string) {
     try {
         const data = await resend.emails.send({
             from: 'onboarding@resend.dev',
-            to: 'marco@lancetrips.com',
+            to: 'admin@lancetrips.com',
             subject: subject,
             text: content,
         });
@@ -38,7 +38,7 @@ async function sendApplicationEmail(subject: string, content: string, attachment
         const buffer = await attachment.arrayBuffer();
         const data = await resend.emails.send({
             from: 'onboarding@resend.dev',
-            to: 'marco@lancetrips.com',
+            to: 'admin@lancetrips.com',
             subject: subject,
             text: content,
             attachments: [
