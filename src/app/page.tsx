@@ -117,7 +117,7 @@ export default function Page() {
             Your Future AI Travel Companion
           </h1>
           <p className="max-w-[600px] text-gray-200 md:text-xl">
-            We're developing a personalized, AI-driven travel planning experience that will understand your preferences and create the perfect itinerary for your next adventure.
+            We&apos;re developing a personalized, AI-driven travel planning experience that will understand your preferences and create the perfect itinerary for your next adventure.
           </p>
           <div className="space-y-4">
             <div className="flex items-center gap-4">
@@ -330,7 +330,7 @@ export default function Page() {
           <div className="space-y-4">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Join Our Team</h2>
             <p className="text-xl text-blue-100">
-            Passionate about travel and technology? We're looking for talented individuals to help build Lance.
+            Passionate about travel and technology? We&apos;re looking for talented individuals to help build Lance.
             </p>
           </div>
           <form onSubmit={handleApplicationSubmit} className="space-y-4">
