@@ -18,10 +18,14 @@ type ToasterToast = ToastProps & {
   action?: ToastActionElement
 }
 
-const ADD_TOAST = "ADD_TOAST";
-const UPDATE_TOAST = "UPDATE_TOAST";
-const DISMISS_TOAST = "DISMISS_TOAST";
-const REMOVE_TOAST = "REMOVE_TOAST";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+const actionTypes = {
+  ADD_TOAST: "ADD_TOAST",
+  UPDATE_TOAST: "UPDATE_TOAST",
+  DISMISS_TOAST: "DISMISS_TOAST",
+  REMOVE_TOAST: "REMOVE_TOAST",
+} as const
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 let count = 0
 
@@ -30,21 +34,23 @@ function genId() {
   return count.toString()
 }
 
+type ActionType = typeof actionTypes
+
 type Action =
   | {
-      type: "ADD_TOAST"
+      type: ActionType["ADD_TOAST"]
       toast: ToasterToast
     }
   | {
-      type: "UPDATE_TOAST"
+      type: ActionType["UPDATE_TOAST"]
       toast: Partial<ToasterToast>
     }
   | {
-      type: "DISMISS_TOAST"
+      type: ActionType["DISMISS_TOAST"]
       toastId?: ToasterToast["id"]
     }
   | {
-      type: "REMOVE_TOAST"
+      type: ActionType["REMOVE_TOAST"]
       toastId?: ToasterToast["id"]
     }
 
