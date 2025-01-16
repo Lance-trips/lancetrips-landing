@@ -134,7 +134,7 @@ export default function Page() {
             </div>
           </div>
           </div>
-          <div className="mt-8 lg:mt-0 relative">
+            <div className="mt-8 lg:mt-0 relative flex justify-center lg:justify-end">
           <motion.div
             className="relative w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg shadow-lg overflow-hidden"
             initial={{ scale: 0.8, opacity: 0 }}
@@ -378,7 +378,7 @@ export default function Page() {
         <div className="flex items-center gap-2">
         <Plane className="h-6 w-6 text-blue-500" />
         <p className="text-sm leading-loose text-blue-700">
-          © 2024 Lance. All rights reserved.
+          © 2025 Lance. All rights reserved.
         </p>
         </div>
       </div>
