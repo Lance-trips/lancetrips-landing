@@ -1,5 +1,5 @@
-export type PageProps<Params extends Record<string, string> = {}> = {
-    params: Params
+export type PageProps<T extends Record<string, unknown> = Record<string, never>> = {
+    params: T
     searchParams: { [key: string]: string | string[] | undefined }
   }
   

@@ -156,6 +156,7 @@ import { notFound } from "next/navigation"
 import blogPosts from "../../../data/blog-posts.json"
 import { BlogPostContent } from "@/components/BlogPostContent"
 import type { Metadata } from "next"
+import type { PageProps } from "@/types/page-props"
 
 function estimateReadingTime(content: string): number {
   const wordsPerMinute = 200
@@ -163,16 +164,11 @@ function estimateReadingTime(content: string): number {
   return Math.ceil(wordCount / wordsPerMinute)
 }
 
-type Params = {
+type BlogPostParams = {
   slug: string
 }
 
-type Props = {
-  params: Params
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<BlogPostParams>): Promise<Metadata> {
   const post = blogPosts.find((post) => post.slug === params.slug)
 
   if (!post) {
@@ -187,7 +183,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function BlogPost({ params }: Props) {
+export default function BlogPost({ params }: PageProps<BlogPostParams>) {
   const post = blogPosts.find((post) => post.slug === params.slug)
 
   if (!post) {

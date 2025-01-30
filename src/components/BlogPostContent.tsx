@@ -19,6 +19,8 @@ interface BlogPost {
   image: string
   tags: string[]
   hashtags: string[]
+  excerpt: string
+  slug: string
 }
 
 interface BlogPostContentProps {
