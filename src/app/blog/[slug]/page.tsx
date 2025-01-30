@@ -164,11 +164,11 @@ function estimateReadingTime(content: string): number {
   return Math.ceil(wordCount / wordsPerMinute)
 }
 
-interface BlogPostParams {
+type BlogPostParams = {
   slug: string
 }
 
-export async function generateMetadata({ params }: { params: BlogPostParams }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<BlogPostParams>): Promise<Metadata> {
   const post = blogPosts.find((post) => post.slug === params.slug)
 
   if (!post) {

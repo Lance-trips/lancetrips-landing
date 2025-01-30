@@ -10,17 +10,19 @@ import { Card, CardContent } from "@/components/ui/card"
 import { TableOfContents } from "@/components/TableOfContents"
 import { SocialShareButtons } from "./SocialShareButtons"
 
+interface BlogPost {
+  title: string
+  category: string
+  author: string
+  date: string
+  content: string
+  image: string
+  tags: string[]
+  hashtags: string[]
+}
+
 interface BlogPostContentProps {
-  post: {
-    title: string
-    category: string
-    author: string
-    date: string
-    content: string
-    image: string
-    tags: string[]
-    hashtags: string[]
-  }
+  post: BlogPost
   currentUrl: string
   estimatedReadTime: number
 }
