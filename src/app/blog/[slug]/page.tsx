@@ -160,12 +160,15 @@ type Params = {
   slug: string
 }
 
+// `generateStaticParams` should return an array of objects, where each object
+// contains a `slug` property. The return type is explicitly defined as a Promise.
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   return blogPosts.map((post) => ({
     slug: post.slug,
   }))
 }
 
+// `generateMetadata` accepts an object with `params` and returns metadata for the page
 export async function generateMetadata({ params }: { params: Params }) {
   const post = blogPosts.find((post) => post.slug === params.slug)
 
@@ -181,7 +184,12 @@ export async function generateMetadata({ params }: { params: Params }) {
   }
 }
 
-export default function BlogPost({ params }: { params: Params }) {
+// The `BlogPost` component receives `params` as part of `PageProps`
+type BlogPostProps = {
+  params: Params
+}
+
+export default function BlogPost({ params }: BlogPostProps) {
   const post = blogPosts.find((post) => post.slug === params.slug)
 
   if (!post) {
@@ -196,3 +204,4 @@ export default function BlogPost({ params }: { params: Params }) {
     </div>
   )
 }
+
