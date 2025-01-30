@@ -346,6 +346,7 @@ import { motion } from "framer-motion"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import confetti from 'canvas-confetti'
+import { JoinWaitlist } from "@/components/JoinWaitlist"
 
 export default function Page() {
   const [waitlistEmail, setWaitlistEmail] = useState('')
@@ -637,7 +638,7 @@ export default function Page() {
       <section id="join" ref={waitlistRef} className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-r from-green-400 to-blue-500 text-white">
         <div className="container mx-auto px-4 md:px-6">
         <div className="grid gap-12 lg:grid-cols-2">
-          <div className="space-y-8">
+          {/* <div className="space-y-8">
           <div className="space-y-4">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Join Our Waitlist</h2>
             <p className="text-xl text-blue-100">
@@ -658,7 +659,8 @@ export default function Page() {
             <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </form>
-          </div>
+          </div> */}
+          <JoinWaitlist />
           <div className="space-y-8">
           <div className="space-y-4">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Join Our Team</h2>
