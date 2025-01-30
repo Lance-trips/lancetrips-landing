@@ -232,7 +232,21 @@ export default function BlogPost({ params }: BlogPostParams) {
               <div className="prose prose-lg prose-blue max-w-none mb-8">
                 <ReactMarkdown
                   components={{
-                    a: ({ node, ...props }) => (
+                    // a: ({ node, ...props }) => (
+                    //   <a
+                    //     {...props}
+                    //     target="_blank"
+                    //     rel="noopener noreferrer"
+                    //     className="text-blue-600 hover:text-blue-800 underline"
+                    //   />
+                    // ),
+                    // h2: ({ node, ...props }) => (
+                    //   <h2 id={props.children?.toString().toLowerCase().replace(/\s+/g, "-")} {...props} />
+                    // ),
+                    // h3: ({ node, ...props }) => (
+                    //   <h3 id={props.children?.toString().toLowerCase().replace(/\s+/g, "-")} {...props} />
+                    // ),
+                    a: (props) => (
                       <a
                         {...props}
                         target="_blank"
@@ -240,10 +254,10 @@ export default function BlogPost({ params }: BlogPostParams) {
                         className="text-blue-600 hover:text-blue-800 underline"
                       />
                     ),
-                    h2: ({ node, ...props }) => (
+                    h2: (props) => (
                       <h2 id={props.children?.toString().toLowerCase().replace(/\s+/g, "-")} {...props} />
                     ),
-                    h3: ({ node, ...props }) => (
+                    h3: (props) => (
                       <h3 id={props.children?.toString().toLowerCase().replace(/\s+/g, "-")} {...props} />
                     ),
                   }}
