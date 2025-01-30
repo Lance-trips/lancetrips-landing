@@ -156,6 +156,7 @@ import { notFound } from "next/navigation"
 import blogPosts from "../../../data/blog-posts.json"
 import { BlogPostContent } from "@/components/BlogPostContent"
 import type { Metadata } from "next"
+import type { PageProps } from "@/types/page-props"
 
 function estimateReadingTime(content: string): number {
   const wordsPerMinute = 200
@@ -182,7 +183,7 @@ export async function generateMetadata({ params }: { params: BlogPostParams }): 
   }
 }
 
-export default function BlogPost({ params }: { params: BlogPostParams }) {
+export default function BlogPost({ params }: PageProps<BlogPostParams>) {
   const post = blogPosts.find((post) => post.slug === params.slug)
 
   if (!post) {
