@@ -154,7 +154,7 @@ import { notFound } from "next/navigation"
 import blogPosts from "../../../data/blog-posts.json"
 import { Navbar } from "../../../components/Navbar"
 import { Footer } from "../../../components/Footer"
-import { BlogPostContent } from "../../../components/BlogPostContent"
+import BlogPostContent from "../../../components/BlogPostContent"
 
 type Params = {
   slug: string
