@@ -160,15 +160,19 @@ type Params = {
   slug: string
 }
 
-// `generateStaticParams` should return an array of objects, where each object
-// contains a `slug` property. The return type is explicitly defined as a Promise.
+// Define the type for BlogPost props, including params as an object.
+type BlogPostProps = {
+  params: Params
+}
+
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  // This function returns static parameters for the dynamic route
   return blogPosts.map((post) => ({
     slug: post.slug,
   }))
 }
 
-// `generateMetadata` accepts an object with `params` and returns metadata for the page
+// Adjust generateMetadata to correctly handle metadata for dynamic params.
 export async function generateMetadata({ params }: { params: Params }) {
   const post = blogPosts.find((post) => post.slug === params.slug)
 
@@ -184,15 +188,13 @@ export async function generateMetadata({ params }: { params: Params }) {
   }
 }
 
-// The `BlogPost` component receives `params` as part of `PageProps`
-type BlogPostProps = {
-  params: Params
-}
-
-export default function BlogPost({ params }: BlogPostProps) {
+// The BlogPost component
+export default async function BlogPost({ params }: BlogPostProps) {
+  // Find the blog post that matches the slug in the URL
   const post = blogPosts.find((post) => post.slug === params.slug)
 
   if (!post) {
+    // If no post is found, return a 404-like response
     notFound()
   }
 
@@ -204,4 +206,3 @@ export default function BlogPost({ params }: BlogPostProps) {
     </div>
   )
 }
-
