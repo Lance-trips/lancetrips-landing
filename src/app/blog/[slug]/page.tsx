@@ -150,6 +150,8 @@
 //   )
 // }
 
+"use client"
+
 import { Navbar } from "../../../components/Navbar"
 import { Footer } from "../../../components/Footer"
 import { notFound } from "next/navigation"
