@@ -337,7 +337,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { MapPin, Plane, Calendar, Bot, ArrowRight, Globe, Users, Sparkles } from 'lucide-react'
 import Image from "next/image"
-import { joinWaitlist } from '@/actions/waitlist-actions'
+// import { joinWaitlist } from '@/actions/waitlist-actions'
 import { submitApplication } from '@/actions/join-team-actions'
 import { useState, useRef } from 'react'
 import { useToast } from "@/hooks/use-toast"
