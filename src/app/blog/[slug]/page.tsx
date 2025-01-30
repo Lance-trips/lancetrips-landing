@@ -151,7 +151,6 @@
 // }
 
 "use client"
-
 import { Navbar } from "../../../components/Navbar"
 import { Footer } from "../../../components/Footer"
 import { notFound } from "next/navigation"
@@ -165,7 +164,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { TableOfContents } from "@/components/TableOfContents"
 import { SocialShareButtons } from "../../../components/SocialShareButtons"
-import { usePathname } from "next/navigation"
+import type { Metadata } from "next"
 
 function estimateReadingTime(content: string): number {
   const wordsPerMinute = 200
@@ -174,18 +173,32 @@ function estimateReadingTime(content: string): number {
 }
 
 interface BlogPostParams {
-  params: {
-    slug: string
+  slug: string
+}
+
+export async function generateMetadata({ params }: { params: BlogPostParams }): Promise<Metadata> {
+  const post = blogPosts.find((post) => post.slug === params.slug)
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+    }
+  }
+
+  return {
+    title: `${post.title} | Lance Blog`,
+    description: post.excerpt,
   }
 }
 
-export default function BlogPost({ params }: BlogPostParams) {
+export default async function BlogPost({ params }: { params: BlogPostParams }) {
   const post = blogPosts.find((post) => post.slug === params.slug)
-  const currentUrl = usePathname()
 
   if (!post) {
     notFound()
   }
+
+  const currentUrl = `https://lancetrips.com/blog/${params.slug}`
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -232,21 +245,7 @@ export default function BlogPost({ params }: BlogPostParams) {
               <div className="prose prose-lg prose-blue max-w-none mb-8">
                 <ReactMarkdown
                   components={{
-                    // a: ({ node, ...props }) => (
-                    //   <a
-                    //     {...props}
-                    //     target="_blank"
-                    //     rel="noopener noreferrer"
-                    //     className="text-blue-600 hover:text-blue-800 underline"
-                    //   />
-                    // ),
-                    // h2: ({ node, ...props }) => (
-                    //   <h2 id={props.children?.toString().toLowerCase().replace(/\s+/g, "-")} {...props} />
-                    // ),
-                    // h3: ({ node, ...props }) => (
-                    //   <h3 id={props.children?.toString().toLowerCase().replace(/\s+/g, "-")} {...props} />
-                    // ),
-                    a: (props) => (
+                    a: ({ ...props }) => (
                       <a
                         {...props}
                         target="_blank"
@@ -254,10 +253,10 @@ export default function BlogPost({ params }: BlogPostParams) {
                         className="text-blue-600 hover:text-blue-800 underline"
                       />
                     ),
-                    h2: (props) => (
+                    h2: ({ ...props }) => (
                       <h2 id={props.children?.toString().toLowerCase().replace(/\s+/g, "-")} {...props} />
                     ),
-                    h3: (props) => (
+                    h3: ({ ...props }) => (
                       <h3 id={props.children?.toString().toLowerCase().replace(/\s+/g, "-")} {...props} />
                     ),
                   }}
