@@ -14,6 +14,31 @@ import { Card, CardContent } from "@/components/ui/card"
 import { TableOfContents } from "@/components/TableOfContents"
 import { SocialShareButtons } from "../../../components/SocialShareButtons"
 import { usePathname } from "next/navigation"
+import { GetStaticProps, GetStaticPaths } from 'next';
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const post = blogPosts.find((post) => post.slug === params?.slug);
+  if (!post) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: {
+      post,
+    },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = blogPosts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+};
 
 function estimateReadingTime(content: string): number {
   const wordsPerMinute = 200
