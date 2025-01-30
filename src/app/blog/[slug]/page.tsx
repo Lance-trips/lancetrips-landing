@@ -149,7 +149,7 @@
 //     </div>
 //   )
 // }
-
+"use client"
 import { notFound } from "next/navigation"
 import blogPosts from "../../../data/blog-posts.json"
 import { Navbar } from "../../../components/Navbar"
