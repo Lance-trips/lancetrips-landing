@@ -17,7 +17,15 @@ export function TableOfContents({ content }: TableOfContentsProps) {
   useEffect(() => {
     const headings = content.match(/#{2,3}\s.+/g) || []
     const tocItems = headings.map((heading) => {
-      const level = heading.match(/^#{2,3}/)?.[0].length - 1
+      const match = heading.match(/^#{2,3}/)
+      if (!match) {
+        return {
+          id: "",
+          title: heading,
+          level: 2,
+        }
+      }
+      const level = match[0].length - 1
       const title = heading.replace(/^#{2,3}\s/, "")
       const id = title.toLowerCase().replace(/\s+/g, "-")
       return { id, title, level }
