@@ -160,7 +160,7 @@ type Params = {
   slug: string
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
   return blogPosts.map((post) => ({
     slug: post.slug,
   }))
