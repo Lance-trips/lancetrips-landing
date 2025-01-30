@@ -356,31 +356,31 @@ export default function Page() {
   const { toast } = useToast()
   const waitlistRef = useRef<HTMLDivElement>(null)
 
-  const handleWaitlistSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const formData = new FormData()
-    formData.append('email', waitlistEmail)
-    const result = await joinWaitlist(formData)
-    if (result.success) {
-      toast({
-        title: "Success!",
-        description: "You've been added to our waitlist.",
-      })
-      setWaitlistEmail('')
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-      })
-    } else {
-      toast({
-        title: "Error",
-        description: "There was a problem joining the waitlist. Please try again.",
-        variant: "destructive",
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
-      })
-    }
-  }
+  // const handleWaitlistSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   const formData = new FormData()
+  //   formData.append('email', waitlistEmail)
+  //   const result = await joinWaitlist(formData)
+  //   if (result.success) {
+  //     toast({
+  //       title: "Success!",
+  //       description: "You've been added to our waitlist.",
+  //     })
+  //     setWaitlistEmail('')
+  //     confetti({
+  //       particleCount: 100,
+  //       spread: 70,
+  //       origin: { y: 0.6 }
+  //     })
+  //   } else {
+  //     toast({
+  //       title: "Error",
+  //       description: "There was a problem joining the waitlist. Please try again.",
+  //       variant: "destructive",
+  //       action: <ToastAction altText="Try again">Try again</ToastAction>,
+  //     })
+  //   }
+  // }
 
   const handleApplicationSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
