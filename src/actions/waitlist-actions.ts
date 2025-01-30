@@ -2,11 +2,6 @@
 
 import { Resend } from "resend"
 import OpenAI from "openai"
-import { render } from "@react-email/render"
-import JoinWaitlistEmailTemplate from "@/components/JoinWaitlistEmailTemplate"
-import AdminWaitlistNotificationTemplate from "@/components/AdminWaitlistNotificationTemplate"
-import React from "react"
-import { renderToString } from 'react-dom/server';
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })

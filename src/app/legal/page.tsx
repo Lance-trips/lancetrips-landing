@@ -26,7 +26,7 @@ export default function LegalPage() {
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">Legal Documents</h1>
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-            All the legal information, presented in a way that's clear and easy to understand.
+            All the legal information, presented in a way that&apos;s clear and easy to understand.
           </p>
         </div>
         <div className="mx-auto max-w-3xl space-y-4 pt-12">
