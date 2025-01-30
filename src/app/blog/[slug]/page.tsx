@@ -150,9 +150,10 @@
 //   )
 // }
 
+import { GetStaticProps, GetStaticPaths } from 'next'
+import { useRouter } from 'next/router'
 import { Navbar } from "../../../components/Navbar"
 import { Footer } from "../../../components/Footer"
-import { notFound } from "next/navigation"
 import blogPosts from "../../../data/blog-posts.json"
 import { BlogPostContent } from "@/components/BlogPostContent"
 import type { Metadata } from "next"
@@ -182,14 +183,41 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   }
 }
 
-export default function BlogPost({ params }: { params: Params }) {
-  const post = blogPosts.find((post) => post.slug === params.slug)
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const post = blogPosts.find((post) => post.slug === params?.slug)
+  if (!post) {
+    return {
+      notFound: true,
+    }
+  }
+  return {
+    props: {
+      post,
+    },
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = blogPosts.map((post) => ({
+    params: { slug: post.slug },
+  }))
+  return {
+    paths,
+    fallback: false,
+  }
+}
+
+export default function BlogPost({ post }: { post: any }) {
+  const router = useRouter()
 
   if (!post) {
-    notFound()
+    if (typeof window !== 'undefined') {
+      router.push('/404')
+    }
+    return null
   }
 
-  const currentUrl = `https://lancetrips.com/blog/${params.slug}`
+  const currentUrl = `https://lancetrips.com/blog/${post.slug}`
   const estimatedReadTime = estimateReadingTime(post.content)
 
   return (
@@ -202,4 +230,3 @@ export default function BlogPost({ params }: { params: Params }) {
     </div>
   )
 }
-
