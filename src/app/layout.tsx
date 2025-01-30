@@ -1,13 +1,14 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import "./globals.css"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
+import type React from "react" // Import React
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: 'Lance',
-  description: 'Experience personalized, AI-driven travel planning with Lance.',
+  title: "Lance",
+  description: "Experience personalized, AI-driven travel planning with Lance.",
 }
 
 export default function RootLayout({
@@ -17,9 +18,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-            <head>
-        <link rel="icon" href="/lance.ico" type="image/x-icon" />
-      </head>
       <body className={inter.className}>
         {children}
         <Toaster />
