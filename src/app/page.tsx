@@ -349,7 +349,7 @@ import confetti from 'canvas-confetti'
 import { JoinWaitlist } from "@/components/JoinWaitlist"
 
 export default function Page() {
-  const [waitlistEmail, setWaitlistEmail] = useState('')
+  // const [waitlistEmail, setWaitlistEmail] = useState('')
   const [applicationEmail, setApplicationEmail] = useState('')
   const [about, setAbout] = useState('')
   const [cv, setCv] = useState<File | null>(null)
