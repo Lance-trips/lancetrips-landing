@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowRight } from "lucide-react"
@@ -12,7 +12,7 @@ import Script from "next/script"
 
 declare global {
   interface Window {
-    google: any
+    google: typeof google
     initializeAutocomplete: () => void
   }
 }
@@ -88,6 +88,12 @@ export function JoinWaitlist({
       }
     }
   }
+
+  useEffect(() => {
+    if (isGoogleLoaded) {
+      console.log("Google Maps API is loaded and autocomplete is initialized.")
+    }
+  }, [isGoogleLoaded])
 
   const handleScriptError = () => {
     console.error("Error loading Google Maps script")
