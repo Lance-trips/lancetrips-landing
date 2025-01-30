@@ -112,7 +112,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { CalendarDays, Clock } from "lucide-react"
 import { SocialShareButtons } from "./SocialShareButtons"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 
 interface BlogPost {
   id: number
@@ -138,21 +138,42 @@ function estimateReadingTime(content: string): number {
 }
 
 export function BlogPostCard({ post }: BlogPostCardProps) {
-  const [isClient, setIsClient] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
   useEffect(() => {
-    setIsClient(true)
+    setMounted(true)
   }, [])
 
-  if (!isClient) {
-    return null // or a loading state
+  if (!mounted) {
+    return (
+      <Card className="flex flex-col h-full overflow-hidden">
+        {/* Static version without animations */}
+        <CardHeader className="p-0">
+          <Image
+            src={post.image || "/placeholder.svg"}
+            alt={post.title}
+            width={600}
+            height={300}
+            className="w-full h-48 object-cover"
+          />
+        </CardHeader>
+        <CardContent className="flex-grow p-6">
+          <Badge className="mb-2">{post.category}</Badge>
+          <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
+          <p className="text-gray-600 mb-4">{post.excerpt}</p>
+        </CardContent>
+      </Card>
+    )
   }
 
   return (
     <motion.div
-      whileHover={{ scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 300 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.2 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
@@ -166,11 +187,18 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
               height={300}
               className="w-full h-48 object-cover"
             />
-            {isHovered && (
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                <SocialShareButtons url={`https://lancetrips.com/blog/${post.slug}`} title={post.title} />
-              </div>
-            )}
+            <AnimatePresence>
+              {isHovered && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                >
+                  <SocialShareButtons url={`https://lancetrips.com/blog/${post.slug}`} title={post.title} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </CardHeader>
         <CardContent className="flex-grow p-6">
@@ -212,5 +240,4 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
     </motion.div>
   )
 }
-
 
