@@ -23,16 +23,15 @@ interface JoinWaitlistProps {
   buttonText?: string
 }
 
-
 interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  description: string;
+  isOpen: boolean
+  onClose: () => void
+  title: string
+  description: string
 }
 
 export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, description }) => {
-  if (!isOpen) return null;
+  if (!isOpen) return null
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -44,8 +43,8 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, descriptio
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export function JoinWaitlist({
   title = "Join Our Waitlist",
@@ -54,46 +53,43 @@ export function JoinWaitlist({
 }: JoinWaitlistProps) {
   const [waitlistEmail, setWaitlistEmail] = useState("")
   const [dreamDestination, setDreamDestination] = useState("")
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [isGoogleLoaded, setIsGoogleLoaded] = useState(false)
   const { toast } = useToast()
   const autocompleteRef = useRef<HTMLInputElement>(null)
 
-  // Initialize autocomplete when Google Maps API is loaded
-  window.initializeAutocomplete = () => {
-    if (autocompleteRef.current) {
-      try {
-        const autocomplete = new window.google.maps.places.Autocomplete(autocompleteRef.current, {
-          types: ["(cities)"],
-          fields: ["name", "formatted_address"],
-        })
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.initializeAutocomplete = () => {
+        if (autocompleteRef.current) {
+          try {
+            const autocomplete = new window.google.maps.places.Autocomplete(autocompleteRef.current, {
+              types: ["(cities)"],
+              fields: ["name", "formatted_address"],
+            })
 
-        autocomplete.addListener("place_changed", () => {
-          const place = autocomplete.getPlace()
-          if (place.formatted_address) {
-            setDreamDestination(place.formatted_address)
-          } else if (place.name) {
-            setDreamDestination(place.name)
+            autocomplete.addListener("place_changed", () => {
+              const place = autocomplete.getPlace()
+              if (place.formatted_address) {
+                setDreamDestination(place.formatted_address)
+              } else if (place.name) {
+                setDreamDestination(place.name)
+              }
+            })
+
+            setIsGoogleLoaded(true)
+          } catch (error) {
+            console.error("Error initializing Google Places Autocomplete:", error)
+            toast({
+              title: "Warning",
+              description: "City autocomplete is temporarily unavailable. You can still type your destination manually.",
+              variant: "destructive",
+            })
           }
-        })
-
-        setIsGoogleLoaded(true)
-      } catch (error) {
-        console.error("Error initializing Google Places Autocomplete:", error)
-        toast({
-          title: "Warning",
-          description: "City autocomplete is temporarily unavailable. You can still type your destination manually.",
-          variant: "destructive",
-        })
+        }
       }
     }
-  }
-
-  useEffect(() => {
-    if (isGoogleLoaded) {
-      console.log("Google Maps API is loaded and autocomplete is initialized.")
-    }
-  }, [isGoogleLoaded])
+  }, [isGoogleLoaded, toast])
 
   const handleScriptError = () => {
     console.error("Error loading Google Maps script")
@@ -105,35 +101,34 @@ export function JoinWaitlist({
   }
 
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('email', waitlistEmail);
-    formData.append('dreamDestination', dreamDestination);
-    const result = await joinWaitlist(formData);
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append("email", waitlistEmail)
+    formData.append("dreamDestination", dreamDestination)
+    const result = await joinWaitlist(formData)
     if (result.success) {
       toast({
-        title: 'Success!',
+        title: "Success!",
         description: "You've been added to our waitlist. Check your email for a personalized trip plan!",
-      });
-      setWaitlistEmail('');
-      setDreamDestination('');
+      })
+      setWaitlistEmail("")
+      setDreamDestination("")
       confetti({
         particleCount: 100,
         spread: 70,
         origin: { y: 0.6 },
-      });
-    } else if (result.error === 'You already joined our waitlist') {
-      setIsModalOpen(true);
-      console.log(isModalOpen);
+      })
+    } else if (result.error === "You already joined our waitlist") {
+      setIsModalOpen(true)
     } else {
       toast({
-        title: 'Error',
-        description: 'There was a problem joining the waitlist. Please try again.',
-        variant: 'destructive',
+        title: "Error",
+        description: "There was a problem joining the waitlist. Please try again.",
+        variant: "destructive",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
-      });
+      })
     }
-  };
+  }
 
   return (
     <div className="space-y-8">
